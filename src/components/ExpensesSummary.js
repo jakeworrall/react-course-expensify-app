@@ -11,9 +11,12 @@ export const ExpensesSummary = ({ expenseCount, expensesTotal }) => (
     </div>
 );
 
-const mapStateToProps = (state) => ({
-    expenseCount: state.expenses.length,
-    expensesTotal: selectExpensesTotal(selectExpenses(state.expenses, state.filters))
-});
+const mapStateToProps = (state) => {
+    const visibleExpenses = selectExpenses(state.expenses, state.filters);
+    return {
+        expenseCount: visibleExpenses.length,
+        expensesTotal:selectExpensesTotal(visibleExpenses)
+    };
+};
 
 export default connect(mapStateToProps)(ExpensesSummary);
